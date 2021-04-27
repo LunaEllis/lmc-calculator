@@ -67,7 +67,7 @@ LDA a
 SUB ad
 BRP d_loop
 LDA result
-SUB one
+SUB ad
 OUT
 BRA start
 
