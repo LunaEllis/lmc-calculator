@@ -64,10 +64,14 @@ LDA result
 ADD ad
 STA result
 LDA a
+BRZ whole
 SUB ad
 BRP d_loop
 LDA result
 SUB ad
+OUT
+BRA start
+whole LDA result
 OUT
 BRA start
 
