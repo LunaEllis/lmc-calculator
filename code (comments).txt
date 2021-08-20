@@ -1,11 +1,11 @@
-// start of the program, and also the main loop. Resets variables to zero, so the program doesn't break.
+// Start of the program, and also the main loop. Resets variables to zero, so the program doesn't break.
 start LDA zero
 STA input
 STA a
 STA b
 STA result
 
-// Takes uer input, figures out what the user wants to do, and branches to that part of the program.
+// Decodes user input,  and branches to the correct part of the program.
 INP
 STA input
 SUB ad
@@ -99,10 +99,10 @@ zero DAT 0
 // NOTE: On ( https://peterhigginson.co.uk/LMC/ ), branch addresses don't have to be defined. This may be required on alternative simulators.
 // If this is required, here is the code to copy over as well:
 // start DAT
-// addition
-// subtraction
-// multiplication
-// divison
-// m_loop
-// m_end
-// d_loop
+// addition DAT
+// subtraction DAT
+// multiplication DAT
+// divison DAT
+// m_loop DAT
+// m_end DAT
+// d_loop DAT
