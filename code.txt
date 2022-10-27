@@ -1,21 +1,16 @@
 start LDA zero
-STA input
 STA a
 STA b
 STA result
 
 INP
-STA input
-SUB ad
+SUB one
 BRZ addition
-LDA input
-SUB sb
+SUB one
 BRZ subtraction
-LDA input
-SUB multiply
+SUB one
 BRZ multiplication
-LDA input
-SUB divide
+SUB one
 BRZ division
 HLT
 
@@ -39,13 +34,13 @@ multiplication INP
 STA a
 STA result
 INP
-SUB ad
+SUB one
 STA b
 m_loop LDA result
 ADD a
 STA result
 LDA b
-SUB ad
+SUB one
 STA b
 BRZ m_end
 BRA m_loop
@@ -61,14 +56,14 @@ d_loop LDA a
 SUB b
 STA a
 LDA result
-ADD ad
+ADD one
 STA result
 LDA a
 BRZ whole
-SUB ad
+SUB one
 BRP d_loop
 LDA result
-SUB ad
+SUB one
 OUT
 BRA start
 whole LDA result
@@ -82,8 +77,5 @@ a DAT
 b DAT
 result DAT
 
-ad DAT 1
-sb DAT 2
-multiply DAT 3
-divide DAT 4
 zero DAT 0
+one DAT 1
