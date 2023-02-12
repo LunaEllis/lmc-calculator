@@ -1,0 +1,188 @@
+	MOV R12,#61
+	MOV R11,#43
+	MOV R10,#45
+	MOV R9,#42
+	MOV R8,#47
+	MOV R7,#58
+	MOV R6,#10
+	MOV R5,#32
+
+reset: 
+	INP R0,2
+        CMP R0,#1
+	BEQ add
+	CMP R0,#2
+	BEQ sub
+	CMP R0,#3
+	BEQ mult
+	CMP R0,#4
+	BEQ div
+	B end
+
+
+add:	
+	MOV R0,#65
+	MOV R1,#68
+	OUT R0,7
+	OUT R1,7
+	OUT R1,7
+	OUT R7,7
+	OUT R6,7
+
+	INP R0,2 
+	OUT R0,4
+	OUT R5,7
+	OUT R11,7
+	OUT R5,7
+	INP R1,2 
+	OUT R1,4
+      	ADD R0,R0,R1
+      	B equals
+
+
+sub:
+      	MOV R0,#83
+      	MOV R1,#85
+      	MOV R2,#66
+     	OUT R0,7
+     	OUT R1,7
+    	OUT R2,7
+      	OUT R7,7
+      	OUT R6,7
+
+      	INP R0,2 
+      	OUT R0,4
+      	OUT R5,7
+      	OUT R10,7
+      	OUT R5,7
+      	INP R1,2 
+      	OUT R1,4
+      	SUB R0,R0,R1
+      	B equals
+
+
+mult:
+      	MOV R0,#77
+      	MOV R1,#85
+      	MOV R2,#76
+      	MOV R3,#84
+      	OUT R0,7
+      	OUT R1,7
+      	OUT R2,7
+      	OUT R3,7
+      	OUT R7,7
+      	OUT R6,7
+
+      	INP R0,2
+     	OUT R0,4
+      	OUT R5,7
+      	OUT R9,7
+      	OUT R5,7
+      	INP R1,2
+      	OUT R1,4
+      	MOV R3,R0
+      	CMP R0,#0
+      	BEQ m_zero
+      	CMP R1,#0
+      	BEQ m_zero
+      	BGT m_pos
+      	MOV R4,#0
+      	SUB R4,R4,#1
+      	MOV R0,#0
+
+m_neg: 	
+	SUB R0,R0,R3
+      	CMP R1,R4
+      	BEQ equals
+      	ADD R1,R1,#1
+      	B m_neg
+
+m_pos: 	
+	CMP R1,#1
+      	BEQ equals
+      	ADD R0,R0,R3
+      	SUB R1,R1,#1
+      	B m_pos
+
+m_zero: 
+	MOV R0,#0
+      	B equals
+
+
+div:
+      	MOV R0,#68
+      	MOV R1,#73
+      	MOV R2,#86
+      	OUT R0,7
+      	OUT R1,7
+      	OUT R2,7
+      	OUT R7,7
+      	OUT R6,7
+
+      	MOV R0,#0
+      	INP R1,2 
+      	MOV R3,R1
+      	OUT R1,4
+      	OUT R5,7
+      	OUT R8,7
+      	OUT R5,7
+      	INP R2,2 
+      	OUT R2,4
+      	CMP R1,#0
+      	BEQ equals
+      	BLT a_neg
+      	CMP R2,#0
+      	BEQ equals
+      	BLT b_neg
+
+ab_pos: 
+	SUB R1,R1,R2
+      	CMP R1,#0
+      	BLT equals
+      	ADD R0,R0,#1
+      	B ab_pos
+
+a_neg: 	
+	CMP R2,#0
+      	BEQ equals
+      	BLT ab_neg
+      	ADD R1,R1,R2
+      	CMP R1,#0
+      	BGT equals
+      	SUB R0,R0,#1
+      	B a_neg
+
+b_neg: 	
+	ADD R1,R1,R2
+      	CMP R1,#0
+      	BLT equals
+      	SUB R0,R0,#1
+      	B b_neg
+
+ab_neg: 
+	SUB R1,R1,R2
+      	CMP R1,#0
+      	BGT equals
+      	ADD R0,R0,#1
+      	B ab_neg
+
+
+equals:
+      	OUT R5,7
+      	OUT R12,7
+      	OUT R5,7
+      	OUT R0,4
+      	OUT R6,7
+      	B reset
+
+end:
+      	MOV R0,#69
+     	MOV R1,#78
+      	MOV R2,#68
+      	MOV R3,#33
+      	OUT R5,7
+      	OUT R0,7
+      	OUT R1,7
+      	OUT R2,7
+      	OUT R3,7
+      	HALT
